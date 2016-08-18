@@ -28,9 +28,8 @@ module.exports = newEjs;
 /**
  * Create a middleware.bodyParser
  *
- * @param {Request} req
- * @param {Response} res
- * @param {Function} next
+ * @param {String} path
+ * @param {Object} obj
  * @public
  */
 
