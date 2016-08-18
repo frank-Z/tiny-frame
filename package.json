@@ -1,0 +1,21 @@
+{
+  "name": "tinyFrame",
+  "version": "0.0.1",
+  "description": "my practice for nodejs",
+  "main": "app.js",
+  "scripts": {
+  },
+  "author": {
+    "name": "frank-Z",
+    "email": "1262445244@qq.com",
+    "realname": "张思逸"
+  },
+  "dependencies": {
+    "connect": "*",
+    "ejs": "*"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "MIT"
+}
