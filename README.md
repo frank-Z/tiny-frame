@@ -10,28 +10,41 @@
 
 # middleware or filter
 
-ipFilter
-> ipFilter,顾名思义,是用来检查请求IP的;用法如下：
->>   app.use(ipFilter({"checkType":1,"frequencyLimit":10}));  
+ipFilter：顾名思义,是用来检查请求IP的;用法如下：
+> app.use(ipFilter({"checkType":1,"frequencyLimit":10}));  
 > 其接受1个对象,共2个参数.checkType为检查类型,1为黑名单检查（即只有黑名单中的ip不能访问）,2为白名单检查,默认为1;
 > frequencyLimit为单位时间访问数限制,false为不限制,数组则为每10分钟的访问次数限制（包括静态文件的访问，若只想限制网页的访问，请将staticHandle放于ipFilter之前）,默认次数1000.
 
 
-staticHandle
+staticHandle：是用来处理静态文件的：
+> app.use(staticHandle);   
 
-bodyParser
+> 将所有静态文件的请求收集,判别，然后返回给客户端;
 
-cookieParser
+> 只有非静态文件才能通过此中间件;
 
-> ## 这是一个标题。
-> 
-> 1.   这是第一行列表项。
-> 2.   这是第二行列表项。
-> 
-> 给出一些例子代码：
-> 
->     return shell_exec("echo $input | $markdown_script");
-sessionParser
+bodyParser：解析请求所可能带的参数：
+> app.use(bodyParser);      
+
+> 暂时只支持数据量小的普通get和post请求,功能待完善;
+
+> 将请求参数绑到req.myBody上面，其他参数待完善;
+
+> 打算将一些方法也托管到res或req对象上面,暂时有res.myRender方法;
+
+cookieParser：解析cookie
+> app.use(cookieParser); 
+
+> 暂时只支持普通字符串类的cookie解析,解析后产生的对象绑到了req.myCookies上;
+
+> 其他待完善
+
+sessionParser：获取session
+> app.use(sessionParser);   
+
+> 将myCookies上带session标识的赋值到req.mySession上;
+
+> 其他待完善
 
 
 # route
