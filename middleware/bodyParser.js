@@ -19,7 +19,7 @@
 var querystring = require('querystring');
 var urlParse = require('url').parse;
 var ext = require('path').extname;
-var newEjs = require('../module/ejs');
+var newEjs = require('../module/ejs/ejs');
 
 /**
  * Module exports.
