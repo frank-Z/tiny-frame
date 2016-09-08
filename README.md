@@ -8,6 +8,10 @@
   
   App file entry, when the request comes in, an app instances generated through a connect, first in turn by middleware /filter. By matching the path, divided into different router file, to match the route to find the corresponding action, and finally the implementation of action.
 
+# 初之体验
+>  下载后 npm install
+>  然后 访问 http://localhost:3000/test
+
 # middleware or filter
 
 ipFilter：顾名思义,是用来检查请求IP的;用法如下：
