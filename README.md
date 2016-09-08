@@ -48,4 +48,20 @@ sessionParser：获取session
 
 
 # route
-<h3>未完待续...</h3>
+<h3>暂时废弃...</h3>
+
+# handleHttp
+<h3>业务处理</h3>
+
+# 使用方法
+1.在app/config/httpConfig 里面配置路径和方法名  如/test路径执行名称为的test函数,在对象中添加
+> "/test":"test"
+
+2.方法在app/action 里面定义 暂时不要在app下面再设文件夹 定义方法如下
+> defineAction("test",function(req,res){
+>   res.myRender('test.html',{"username":"test","title":"我是测试标题"})
+>})
+
+3.模板渲染函数res.myRender  一个参数接受html相对（app/view）路径名,第二个参数为一个对象,app/view存放模板页面，采用ejs模板
+
+
