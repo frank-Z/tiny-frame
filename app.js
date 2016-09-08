@@ -16,6 +16,7 @@ var cookieParser = require('./middleware/cookieParser');
 var ipFilter = require('./middleware/ipcheck').ipFilter;
 var path = require('path');
 
+var access = require('./module/access/index');
 var handleHttp = require('./module/handleHttp/index');
 //var index = require('./routes/index');
 
@@ -23,6 +24,9 @@ var handleHttp = require('./module/handleHttp/index');
 global.ROOT_DIR = __dirname || process.cwd();
 global.STATIC_DIR = path.normalize(ROOT_DIR + '/static/');
 global.TEMPLATE_DIR = path.normalize(ROOT_DIR+'/app/view/');
+global.APP_DIR = path.normalize(ROOT_DIR+'/app/action/');
+
+access.config();
 
 //middleware
 app.use(ipFilter({"checkType":1,"frequencyLimit":100}));  // checkType =1 为黑名单检查    =2 为白名单检查  默认为1
@@ -39,11 +43,11 @@ app.use(sessionParser);              //session 解析
 app.use(handleHttp);
 
 
-app.use(function(req,res,next){
-
-    res.myRender(req.myUrl,{"username":"test","title":"我是测试标题"})
-
-});
+//app.use(function(req,res,next){
+//
+//    res.myRender(req.myUrl,{"username":"test","title":"我是测试标题"})
+//
+//});
 
 app.listen(3000);
 

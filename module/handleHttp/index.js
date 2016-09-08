@@ -13,7 +13,8 @@
  * Module dependencies.
  * @private
  */
-var doAction = require('./config');
+var doActionName = require('./config');
+var doAction = require('../access/index').doAction;
 
 /**
  * Module exports.
@@ -33,13 +34,12 @@ module.exports = handlerHttp;
 
 function handlerHttp(req, res, next) {
 
-    var fn_Name = doAction.getActionName(req.myUrl) || "defaultAction";
+    var fn_Name = doActionName.getActionName(req.myUrl) || "defaultAction";
 
+    console.log("fn_Name: "+fn_Name);
 
-    fn(req,res,next);
+    var fn =  doAction(fn_Name);
 
-    function fn(req,res,next){
-        var _fn = DEFINE_ACTION_ARRAY[fn_Name];
-    }
+    fn(req, res, next);
 
 }
