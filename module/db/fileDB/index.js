@@ -22,7 +22,7 @@ FileDB.prototype.get = function(opts,cb){
         var arr =[];
         data.forEach(function(ele){
             var outer = ele;
-            console.log("outer : "+outer);
+            //console.log("outer : "+outer);
             var bol = Object.keys(opts).every(function(elem, index, arr){
                 var inner = elem;
                 return opts[inner] === outer[inner];
