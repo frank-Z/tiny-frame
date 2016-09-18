@@ -16,6 +16,12 @@ module.exports = {
         }
         return false;
     },
+    isObject: function (fn) {
+        if (toString.call(fn) === "[object Object]") {
+            return true;
+        }
+        return false;
+    },
     cloneObjectPerfect: function (obj) {
         if (typeof obj === "object") {
             if (util.isArray(obj)) {

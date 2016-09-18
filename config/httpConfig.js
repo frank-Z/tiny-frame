@@ -6,5 +6,7 @@
 
 module.exports = {
     "/test":"test",
-    "/hahaha":"hehe"
+    "/hahaha":"hehe",
+    "/formTest":"formTest",
+    "/getFormTest":"getFormTest"
 };

@@ -20,7 +20,7 @@ var querystring = require('querystring');
 var urlParse = require('url').parse;
 var ext = require('path').extname;
 var newEjs = require('../module/ejs/ejs');
-
+var utils = require('../app/tinyTool/utils');
 /**
  * Module exports.
  * @public
@@ -43,6 +43,9 @@ function bodyParser(req, res, next) {
 
         console.log("bodyParser begin-------------------------");
 
+        _requestParser(req);
+        _responseParser(res);
+
         var _urlParse = urlParse(req.url, true);
         //console.log(_urlParse);
 
@@ -60,6 +63,11 @@ function bodyParser(req, res, next) {
 
             if (_method === "get") {
                 _params = _urlParse.query;
+                req.myBody = _params;    //url 参数
+                //console.log("_params:  "+JSON.stringify(_params));
+
+                console.log("bodyParser end---------------------------");
+                next();
             }
             else if (_method === "post") {
                 var data = "";
@@ -67,17 +75,44 @@ function bodyParser(req, res, next) {
                     data += chunk;
                 });
                 req.on("end", function () {
-                    _params = querystring.parse(query);
+                    //console.log("data:  "+data);
+                    _params = querystring.parse(data);
+
+                    req.myBody = _params;    //url 参数
+                    //console.log("_params:  "+JSON.stringify(_params));
+
+                    console.log("bodyParser end---------------------------");
+                    next();
                 })
             }
-            req.myBody = _params;    //url 参数
-            //console.log("_params:  "+JSON.stringify(_params));
         }
 
-        res.myRender = newEjs;
-
-        console.log("bodyParser end---------------------------");
-        next();
-
     }
-};
+}
+
+function _requestParser(req){
+    //methods
+    req.myMethod = (req.method || "").toString().toLowerCase();
+}
+
+
+function _responseParser(res){
+    //methods
+    res.myRender = newEjs;
+    res.mySend = function(opt){
+        opt = opt || "";
+        var postData;
+        if (utils.isString(opt)){
+            postData = opt;
+        }else if(utils.isObject(opt)){
+            postData = JSON.stringify(opt)
+        }else{
+            postData = JSON.stringify(opt);
+        }
+
+        res.end(postData);
+    };
+
+    //settings
+    res.writeHead("200",{"content-Type":"text/html"})
+}
