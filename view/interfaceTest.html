@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title><?=title ?></title>
+</head>
+<body>
+<h1>接口测试：</h1>
+<div>
+    <div>
+        <select name="method_type" id="method_type">
+            <option value="post">post</option>
+            <option value="get">get</option>
+        </select>
+        <label for="URL">URL：
+        </label>
+        <input type="text" id="URL" style="width: 600px" class="inputItems"/>
+    </div>
+    <br/>
+    <div>
+        <label for="UserId">UserId =
+        </label>
+        <input type="text" id="UserId" class="inputItems"/>
+        <label for="FunctionId">FunctionId =
+        </label>
+        <input type="text" id="FunctionId" class="inputItems"/>
+        <label for="key">password =
+        </label>
+        <input type="text" id="key" class="inputItems"/>
+        <input name="MD5" type="checkbox" id="MD5"/>是否MD5
+
+        <button type="submit" id="submit">提交</button>
+    </div>
+
+
+</div>
+<br/>
+<br/>
+<br/>
+<div>
+    <div style="float: left;width: 40%">
+        postData：
+        <br/>
+        <textarea type="text" id="postData" style="width: 400px;height: 500px;max-width: 90%"/></textarea>
+    </div>
+    <div style="float: left;width: 40%">
+        信息：   <button id="clear">清空</button>
+        <br/>
+        <textarea type="text" id="successMesssage" style="width: 500px;height: 500px" readonly/></textarea>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/assets/js/jquery.min.js"></script>
+<script>
+    $('#submit').on('click',function(){
+        var postData = $('#postData').val();
+        postData = JSON.stringify(JSON.parse(postData));
+        $.ajax({
+            type:"POST",
+            data:{
+                method_type:$('#method_type').val(),
+                URL:$('#URL').val(),
+                UserId:$('#UserId').val(),
+                FunctionId:$('#FunctionId').val(),
+                key:$('#key').val(),
+                MD5:$('#MD5').is(':checked'),
+                postData:postData
+            },
+            url:"/api/interfaceTest",
+            dataType:"json",
+            success:function(data){
+                //console.log(JSON.stringify(data));
+                var now = new Date();
+                var str = "[" + now.Format('hh:mm:ss') + "]";
+                $("#successMesssage").append(str + JSON.stringify(data) + "\r\n")
+            }
+        })
+    });
+    if (!Date.prototype.Format) {
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+    }
+   $('#clear').on('click',function(){
+       $("#successMesssage").val("")
+   });
+
+
+    $(document).on('click','.inputItems',function(e){
+        e.stopPropagation()
+        var that = $(this);
+        var id = that.attr('id');
+
+        $.ajax({
+            type:"POST",
+            url:"/api/interfaceTestClick",
+            data:{
+                "id":id
+            },
+            success:function(data){
+                data = JSON.parse(data)
+                if(data.length>0){
+                    var ul = 'ul_' + id;
+                    var li = 'li' + id;
+                    var html = '<ul id="'+ul+'" class="alertItems" style="list-style:none;border:1px solid #666;padding:0">';
+                    data.forEach(function(ele){
+                        html += '<li class="innerItems">'+ele+'</li>';
+                    })
+
+                    html += '</ul>';
+                    $('#'+ul).remove();
+                    var top = that.offset().top;
+                    var left = that.offset().left;
+
+                    var width = that.width();
+                    //console.log(width,top,left)
+
+                    $('body').append(html);
+
+                    $('#'+ul).css({
+                        "position":"absolute",
+                        "top":parseInt(top)+5 + "px",
+                        "left":parseInt(left)+ "px",
+                        "width":parseInt(width) + "px"
+                    })
+                }
+            }
+        });
+    });
+
+    $(document).on('click',function(){
+        $('.alertItems').remove();
+    });
+
+    $(document).on('click','.innerItems',function(){
+        var that = $(this);
+        var a = that.html();
+        var pid = that.parent().attr('id');
+        var input_id = pid.slice(3);
+        //console.log(input_id);
+        $('#'+input_id).val(a);
+    })
+</script>
+</html>

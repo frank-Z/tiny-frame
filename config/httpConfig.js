@@ -7,6 +7,9 @@
 module.exports = {
     "/test":"test",
     "/hahaha":"hehe",
-    "/formTest":"formTest",
-    "/getFormTest":"getFormTest"
+    "/formTest":"formTest",  //文件数据库页面
+    "/getFormTest":"getFormTest",//文件数据库提交
+    "/interfaceTest":"interfaceTest", //接口测试页面
+    "/api/interfaceTest":"InterfaceTestApi" ,//接口测试页面
+    "/api/interfaceTestClick":"interfaceTestClick" //接口测试页面按钮点击
 };
