@@ -8,7 +8,7 @@
  * email:1262445244@qq.com
  */
 
-var app = require('connect')();
+var app = require('./module/connect')();
 var bodyParser = require('./middleware/bodyParser');
 var staticHandle = require('./middleware/staticHandle');
 var sessionParser = require('./middleware/sessionParser');
