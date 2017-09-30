@@ -4,4 +4,4 @@
 var Route = require('./route');
 
 
-function fn(path,router){}
+function fn(path, router) { }

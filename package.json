@@ -1,9 +1,16 @@
 {
-  "name": "tinyFrame",
+  "name": "tiny-frame",
   "version": "0.0.1",
-  "description": "my practice for nodejs",
+  "description": "Tiny Framework",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
+    "dev": "",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frank-Z/tiny-frame.git"
   },
   "author": {
     "name": "frank-Z",
@@ -13,8 +20,12 @@
   "dependencies": {
     "ejs": "*"
   },
+  "bugs": {
+    "url": "https://github.com/frank-Z/tiny-frame/issues"
+  },
+  "homepage": "https://github.com/frank-Z/tiny-frame#readme",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=8"
   },
   "license": "MIT"
 }

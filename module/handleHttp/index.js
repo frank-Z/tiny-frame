@@ -36,9 +36,9 @@ function handlerHttp(req, res, next) {
 
     var fn_Name = doActionName.getActionName(req.myUrl) || "defaultAction";
 
-    console.log("fn_Name: "+fn_Name);
+    console.log("fn_Name: " + fn_Name);
 
-    var fn =  doAction(fn_Name);
+    var fn = doAction(fn_Name);
 
     fn(req, res, next);
 

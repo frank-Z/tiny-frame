@@ -14,7 +14,7 @@ var utils = require('../../../app/tinyTool/utils');
  */
 
 
-function Layer(path , type, fn){
+function Layer(path, type, fn) {
     this.path = path || '/';
     this.type = type.toLowerCase() || 'all';
     this.handle = fn;
@@ -22,14 +22,14 @@ function Layer(path , type, fn){
 
 var pro = Layer.prototype;
 
-pro.match = function(path,type){
+pro.match = function (path, type) {
     type = type.toLowerCase();
 
-    if(path && utils.isString(path)&&type && utils.isString(path)){   //参数检查
+    if (path && utils.isString(path) && type && utils.isString(path)) {   //参数检查
 
-        if(path == this.path){    //路径检查
+        if (path == this.path) {    //路径检查
 
-            if(this.type == 'all' || this.type == type){   //all类型能匹配get和post请求
+            if (this.type == 'all' || this.type == type) {   //all类型能匹配get和post请求
                 return true;
             }
         }
@@ -37,10 +37,10 @@ pro.match = function(path,type){
     return false;
 };
 
-pro.handle = function(req,res,next){
+pro.handle = function (req, res, next) {
     var fn = this.handle;
 
-    if(fn && utils.isFunction(fn)){
-        fn(req,res,next)
+    if (fn && utils.isFunction(fn)) {
+        fn(req, res, next)
     }
 };

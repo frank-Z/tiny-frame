@@ -21,8 +21,8 @@ proto.listen = function (port) {
     var self = this;
     http.createServer(function (req, res) {
         self.handle(req, res);
-    }).listen(port,function () {
-        console.log("listen " +　port+ " port");
+    }).listen(port, function () {
+        console.log("listen " + 　port + " port");
     });
 };
 
@@ -31,10 +31,10 @@ proto.listen = function (port) {
  * @param route
  * @param fn
  */
-proto.use = function (route,fn) {
+proto.use = function (route, fn) {
     var self = this;
 
-    if(route && !fn){
+    if (route && !fn) {
         fn = route;
         route = "/";
     }
@@ -43,7 +43,7 @@ proto.use = function (route,fn) {
         throw new Error("中间件必须为函数");
     }
 
-    self._stack.push({route:route,fn:fn});
+    self._stack.push({ route: route, fn: fn });
 };
 
 /**
@@ -58,11 +58,11 @@ proto.handle = function (req, res) {
 
     function next() {
         var _handle = self._stack[index];
-        if(_handle && _handle.fn){
-            index ++ ;
-            if(stringMatch(_handle.route,ori_url)){
-                _handle.fn(req,res,next);
-            }else {
+        if (_handle && _handle.fn) {
+            index++;
+            if (stringMatch(_handle.route, ori_url)) {
+                _handle.fn(req, res, next);
+            } else {
                 next();
             }
         }
@@ -75,6 +75,6 @@ proto.handle = function (req, res) {
  * @param tlp  模板
  * @param target  路由
  */
-function stringMatch(tlp,target) {
-    return tlp === target.slice(0,tlp.length)
+function stringMatch(tlp, target) {
+    return tlp === target.slice(0, tlp.length)
 }

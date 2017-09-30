@@ -33,43 +33,43 @@ module.exports = newEjs;
  * @public
  */
 
-function newEjs(path,obj){
+function newEjs(path, obj) {
     var _self = this;
 
-    if(path.toString().indexOf('.') === -1){
+    if (path.toString().indexOf('.') === -1) {
         path = path + ".html";
     }
 
     var _template_root = TEMPLATE_DIR || normalize(process.cwd() + '/app/view/');
 
-    var _realPath = normalize(_template_root+ path);
+    var _realPath = normalize(_template_root + path);
 
-    console.log("_realPath : "+_realPath);
+    console.log("_realPath : " + _realPath);
 
-    fs.exists(_realPath,function(exist){
-        if(!exist){
+    fs.exists(_realPath, function (exist) {
+        if (!exist) {
 
-            _self.writeHead(404,{"Content-Type":"text/html"});
+            _self.writeHead(404, { "Content-Type": "text/html" });
 
             _self.end("<meta charset='UTF-8'><h1 style='color:red;margin: 5%'>NOT FOUND</h1>");
 
         }
-        else{
+        else {
 
-            ejs.renderFile(_realPath, obj,{delimiter: '?'}, function(err, str){
+            ejs.renderFile(_realPath, obj, { delimiter: '?' }, function (err, str) {
 
-                if(err){
+                if (err) {
 
                     console.log("[module][ejs]" + "render file wrong");
 
-                    _self.writeHead(200,{"Content-Type":"text/html"});
+                    _self.writeHead(200, { "Content-Type": "text/html" });
 
                     _self.end("<meta charset='UTF-8'><h1 style='color:red;margin: 5%'>系统繁忙</h1>");
 
                 }
-                else{
+                else {
 
-                    _self.writeHead(200,{"Content-Type":"text/html"});
+                    _self.writeHead(200, { "Content-Type": "text/html" });
 
                     _self.end(str);
 

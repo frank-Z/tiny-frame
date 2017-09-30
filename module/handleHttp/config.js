@@ -6,8 +6,8 @@ var _HTTP_CONFIG = require('../../config/httpConfig.js');
 
 
 module.exports = {
-    getActionName:function(url){
-       return _HTTP_CONFIG[url];
+    getActionName: function (url) {
+        return _HTTP_CONFIG[url];
     }
 
 };

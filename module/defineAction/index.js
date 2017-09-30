@@ -3,6 +3,6 @@
  */
 golbal.DEFINE_ACTION_ARRAY = {};
 
-global.DEFINE_ACTION = function(name,fn){
+global.DEFINE_ACTION = function (name, fn) {
     DEFINE_ACTION_ARRAY[name] = fn;
 };
